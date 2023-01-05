@@ -61,17 +61,32 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final contactBook = ContactBook();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Contacts Home"),
       ),
-      body: ListView.builder(
-        itemCount: contactBook.length,
-        itemBuilder: (BuildContext context, int index) {
-          final contact = contactBook.contact(atIndex: index)!;
-          return ListTile(
-            title: Text(contact.name),
+      body: ValueListenableBuilder(
+        valueListenable: ContactBook(),
+        builder: (context, value, child) {
+          final contacts = value;
+          return ListView.builder(
+            itemCount: contacts.length,
+            itemBuilder: (BuildContext context, int index) {
+              final contact = contacts[index];
+              return Dismissible(
+                onDismissed: (direction) {
+                  ContactBook().remove(contact: contact);
+                },
+                key: ValueKey(contact.id),
+                child: Material(
+                  color: Colors.white,
+                  elevation: 6,
+                  child: ListTile(
+                    title: Text(contact.name),
+                  ),
+                ),
+              );
+            },
           );
         },
       ),
