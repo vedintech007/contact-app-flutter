@@ -30,24 +30,54 @@ class _NewContactViewState extends State<NewContactView> {
       appBar: AppBar(
         title: const Text("Add Contact"),
       ),
-      body: Column(
-        children: [
-          TextField(
-            controller: _controller,
-            decoration: const InputDecoration(
-              hintText: "Enter a new contact name here...",
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            const SizedBox(height: 70),
+            const Icon(
+              Icons.contact_phone_outlined,
+              size: 90,
             ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              final contact = Contact(name: _controller.text);
+            const SizedBox(height: 20),
+            TextField(
+              controller: _controller,
+              decoration: InputDecoration(
+                hintText: "Enter a new contact name here...",
+                border: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color(0xffb4b4b4),
+                  ),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8),
+                  ),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5),
+                  borderSide: const BorderSide(color: Colors.red),
+                  gapPadding: 10,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                fixedSize: Size(MediaQuery.of(context).size.width / 1.1, 50),
+                backgroundColor: const Color(0xFFF84706),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              onPressed: () {
+                final contact = Contact(name: _controller.text);
 
-              ContactBook().add(contact: contact);
-              Navigator.of(context).pop();
-            },
-            child: const Text("Add Contact"),
-          ),
-        ],
+                ContactBook().add(contact: contact);
+                Navigator.of(context).pop();
+              },
+              child: const Text("Add Contact"),
+            ),
+          ],
+        ),
       ),
     );
   }

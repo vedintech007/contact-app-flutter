@@ -23,11 +23,14 @@ class HomePage extends StatelessWidget {
                   ContactBook().remove(contact: contact);
                 },
                 key: ValueKey(contact.id),
-                child: Material(
-                  color: Colors.white,
-                  elevation: 6,
-                  child: ListTile(
-                    title: Text(contact.name),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Material(
+                    color: Colors.white,
+                    elevation: 2,
+                    child: ListTile(
+                      title: Text(contact.name),
+                    ),
                   ),
                 ),
               );
@@ -36,6 +39,7 @@ class HomePage extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        tooltip: "Add Contact",
         child: const Icon(Icons.add),
         onPressed: () async {
           await Navigator.of(context).pushNamed('/new-contact');

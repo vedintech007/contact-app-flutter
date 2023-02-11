@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:vanilla_contact_app/add_contact/add_contact_view.dart';
+import 'package:vanilla_contact_app/constants/routes.dart';
 import 'package:vanilla_contact_app/homepage/home.dart';
 import 'package:vanilla_contact_app/models/contact_model.dart';
+import 'package:vanilla_contact_app/widgets/dismiss_keyboard.dart';
 
 void main() {
   runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Contact App",
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    DismissKeyboard(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: "Contact App",
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const HomePage(),
+        routes: routes,
       ),
-      home: const HomePage(),
-      routes: {
-        '/new-contact': (context) => const NewContactView(),
-      },
     ),
   );
 }
 
 class ContactBook extends ValueNotifier<List<Contact>> {
+  // singleton pattern for contact book
   ContactBook._sharedInstance() : super([]);
-
   static final ContactBook _shared = ContactBook._sharedInstance();
   factory ContactBook() => _shared;
 
+  // array to store the contacts
   // final List<Contact> _contacts = [];
 
   int get length => value.length;
