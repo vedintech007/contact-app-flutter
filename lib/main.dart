@@ -21,27 +21,29 @@ void main() {
   );
 }
 
+/// extend the contact book app with ValueNotifier with the value type we
+/// managing which is a List of contact
 class ContactBook extends ValueNotifier<List<Contact>> {
   // singleton pattern for contact book
-  ContactBook._sharedInstance() : super([]);
+  ContactBook._sharedInstance() : super([]); // super([]) means we manage an empty list
   static final ContactBook _shared = ContactBook._sharedInstance();
   factory ContactBook() => _shared;
 
   // array to store the contacts
   // final List<Contact> _contacts = [];
+  /// our super the ValueNotifier contains a value variable by default which is a List of our contact
+  /// so we no longer need to use the _contacts to access or store the contacts
+  /// more info on the ValueNotifier docs
 
   int get length => value.length;
 
   void add({required Contact contact}) {
-    // final ValueNotifier notifier;
-    // value.add(contact);
     final contacts = value;
     contacts.add(contact);
     notifyListeners();
   }
 
   void remove({required Contact contact}) {
-    // _contacts.remove(contact);
     final contacts = value;
     if (contacts.contains(contact)) {
       contacts.remove(contact);
